@@ -49,7 +49,7 @@ The script expects a base directory containing two subfolders:
 **Command:**
 
 ```bash
-python calculate_all_retinal_features.py \
+python calculate_retinal_features.py \
     --base_dir /path/to/segmentations \
     --output results.csv
 ```
@@ -58,7 +58,6 @@ python calculate_all_retinal_features.py \
 *   `--base_dir`: Path to the directory containing `artery_bin` and `vein_bin` folders.
 *   `--output`: Path to save the resulting CSV file.
 *   `--no_pvbm`: (Optional) Disable PVBM-based optic disc detection and use fallback method.
-*   `--swap_av`: (Optional) Swap artery and vein labels if necessary.
 
 ## Features Calculated
 

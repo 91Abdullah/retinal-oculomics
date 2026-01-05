@@ -34,21 +34,19 @@ except ImportError:
 warnings.filterwarnings('ignore')
 
 class UnifiedFeatureCalculator:
-    def __init__(self, base_dir, optic_disc_diameter_um=1800, swap_av=False, use_pvbm=True):
+    def __init__(self, base_dir, optic_disc_diameter_um=1800, use_pvbm=True):
         """
         Initialize feature calculator
         
         Args:
             base_dir: Base directory with segmentations (must contain artery_bin/ and vein_bin/)
             optic_disc_diameter_um: Optic disc diameter in micrometers (default 1800)
-            swap_av: If True, swap artery and vein labels
             use_pvbm: If True, use PVBM for disc detection
         """
         self.base_dir = Path(base_dir)
         self.artery_bin_dir = self.base_dir / "artery_bin"
         self.vein_bin_dir = self.base_dir / "vein_bin"
         self.optic_disc_diameter_um = optic_disc_diameter_um
-        self.swap_av = swap_av
         self.use_pvbm = use_pvbm and PVBM_AVAILABLE
         
         # Load summary.csv if available (for crop info/original image path)
@@ -118,9 +116,6 @@ class UnifiedFeatureCalculator:
         artery = (artery > 127).astype(np.uint8)
         vein = (vein > 127).astype(np.uint8)
         
-        if self.swap_av:
-            artery, vein = vein, artery
-            
         return artery, vein
 
     # =========================================================================
@@ -426,13 +421,11 @@ if __name__ == "__main__":
     parser.add_argument('--base_dir', required=True, help="Directory containing artery_bin/ and vein_bin/")
     parser.add_argument('--output', required=True, help="Output CSV path")
     parser.add_argument('--no_pvbm', action='store_true', help="Disable PVBM disc detection (use fallback)")
-    parser.add_argument('--swap_av', action='store_true', help="Swap Artery/Vein labels")
     
     args = parser.parse_args()
     
     calc = UnifiedFeatureCalculator(
         base_dir=args.base_dir,
-        swap_av=args.swap_av,
         use_pvbm=not args.no_pvbm
     )
     calc.run(args.output)
