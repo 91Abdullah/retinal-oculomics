@@ -1,6 +1,6 @@
 # Retinal Vessel Segmentation and Feature Extraction
 
-This repository contains the official implementation of the segmentation model and feature extraction pipeline used in the study "Precision Oculomics".
+This repository contains the official implementation of the segmentation model and feature extraction pipeline used in the study "Retinal Oculomics as a Non-Invasive Biomarker for Cardiovascular Disease Risk: A Multimodal Fusion Approach".
 
 ## Contents
 
